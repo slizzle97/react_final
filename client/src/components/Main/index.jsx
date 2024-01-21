@@ -3,10 +3,11 @@ import ProductFilter from "../ProductFilter";
 import Products from "../Products";
 import styles from "./styles.module.css";
 import axios from "axios";
+import Sort from "../ProductSort";
 
 const Main = () => {
 	const handleLogout = () => {
-		localStorage.removeItem("token");
+		sessionStorage.removeItem("token");
 		window.location.reload();
 	};
 	const [data, setData] = useState([])
@@ -16,19 +17,16 @@ const Main = () => {
 	useEffect(() => {
         getProducts()
     }, [])
-	useEffect(() => {
-        console.log(filteredData);
-    }, [filteredData])
+
 
 
     const getProducts = async () => {
         try {
-            const url = "http://localhost:3001/products";
+				const url = "http://localhost:3001/products";
+				const data = await axios.get(url);
+				setProducts(data.data)
+				setData(data.data)
 
-            const data = await axios.get(url);
-            setProducts(data.data)
-            setData(data.data)
-            console.log(data);
 
         }catch (e) {
             console.log(e);
@@ -44,9 +42,16 @@ const Main = () => {
 					Logout
 				</button>
 			</nav>
-			<ProductFilter data={data} setFilteredData={setFilteredData} filteredData={filteredData}/>
+			<div className={styles.content_body}>
+				<div className={styles.inner_container}>
+			<ProductFilter data={data} setFilteredData={setFilteredData}/>
+			<Sort  setFilteredData={setFilteredData} />
 
-			<Products setData={setData} data={data} filteredData={filteredData}/>
+				</div>
+			<Products filteredData={filteredData}/>
+
+			</div>
+
 		</div>
 	);
 };

@@ -12,27 +12,90 @@ const Signup = () => {
 	});
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
+	const emailRegex = /^[a-zA-Z0-9._-]+@gmail\.com$/;
+	const capitalLetterRegex = /[A-Z]/;
+	const symbolRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+	const [isValid, setIsValid] = useState({email:'', password:'', firstName: '', lastName:''});
 
-	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
+
+	const handleChange = ( input ) => {
+		const { name, value } = input.target;
+
+		setData({ ...data, [name]: value });
+
+		if (name === 'email') {
+			if(value.length === 0) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, email: 'Email is Required' }));
+			}else if(!emailRegex.test(value)) {
+
+				setIsValid((prevIsValid) => ({ ...prevIsValid, email: 'Invalid email format. Must end with @gmail.com' }));
+			} else {
+				setIsValid((prevIsValid) => ({...prevIsValid, email: ''}))
+			}
+		} else if (name === 'password') {
+			if(value.length === 0) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Passoword is Required' }));
+			}else
+			if(value.length < 8) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Password must be at least 8 characters' }));
+			}else
+			if(!capitalLetterRegex.test(value)) {
+
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Password must contain at least 1 capital letter' }));
+			}
+			else if(!symbolRegex.test(value)) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Password must contain at least 1  symbol' }));
+			}
+			else {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: '' }));
+				
+			}
+		  }else if(name === 'firstName') {
+			if(value.length === 0) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, firstName: 'First Name is Required' }));
+			}else 
+			if(value.length <=2) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, firstName: 'First Name must be at least 3 characters' }));
+			}
+			else {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, firstName: '' }));
+			}
+		  }else if(name === 'lastName') {
+			if(value.length === 0) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, lastName: 'Last Name is Required' }));
+			}else 
+			if(value.length <=2) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, lastName: 'Last Name must be at least 3 characters' }));
+			}
+			else {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, lastName: '' }));
+			}
+		  }
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const url = "http://localhost:8000/api/users";
-			const { data: res } = await axios.post(url, data);
-			navigate("/login");
-			console.log(res.message);
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
+		console.log(isValid);
+		if(isValid.email !== '' || isValid.password !== '' || isValid.firstName !== '' || isValid.lastName !== '') {
+			e.preventDefault()
+			return;
+		}else {
+
+			try {
+				const url = "http://localhost:8000/api/users";
+				const { data: res } = await axios.post(url, data);
+				navigate("/login");
+				console.log(res.message);
+			} catch (error) {
+				if (
+					error.response &&
+					error.response.status >= 400 &&
+					error.response.status <= 500
+					) {
 				setError(error.response.data.message);
 			}
 		}
+	}
 	};
 
 	return (
@@ -58,6 +121,7 @@ const Signup = () => {
 							required
 							className={styles.input}
 						/>
+						   {isValid.firstName !== '' && <p style={{ color: 'red' }}>{isValid.firstName}</p>}
 						<input
 							type="text"
 							placeholder="Last Name"
@@ -66,7 +130,7 @@ const Signup = () => {
 							value={data.lastName}
 							required
 							className={styles.input}
-						/>
+						/>   {isValid.lastName !== '' && <p style={{ color: 'red' }}>{isValid.lastName}</p>}
 						<input
 							type="email"
 							placeholder="Email"
@@ -76,6 +140,7 @@ const Signup = () => {
 							required
 							className={styles.input}
 						/>
+						   {isValid.email !== '' && <p style={{ color: 'red' }}>{isValid.email}</p>}
 						<input
 							type="password"
 							placeholder="Password"
@@ -85,6 +150,7 @@ const Signup = () => {
 							required
 							className={styles.input}
 						/>
+						   {isValid.password !== '' && <p style={{ color: 'red' }}>{isValid.password}</p>}
 						{error && <div className={styles.error_msg}>{error}</div>}
 						<button type="submit" className={styles.green_btn}>
 							Sing Up

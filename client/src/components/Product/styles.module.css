@@ -14,9 +14,14 @@
 }
 .title {
   font-size: 20px;
+  color: black;
 }
 .content_container {
   padding: 16px;
+}
+.rate {
+  display: flex;
+  align-items: center;
 }
 
 .card {
@@ -38,4 +43,7 @@
 .price {
   font-weight: bold;
   color: #008000;
+}
+.link {
+  text-decoration: none;
 }

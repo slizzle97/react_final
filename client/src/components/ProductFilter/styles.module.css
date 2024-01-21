@@ -1,16 +1,78 @@
-.brand_container {
+.filter_container {
   display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  background: #e2e2e2;
+  top: 80%;
+  border-radius: 5px;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+.col {
   flex-direction: column;
-  height: 200px;
-  overflow: auto;
-  width: 30%;
 }
+.row {
+  flex-direction: row;
+  height: 65px;
+  align-items: center;
+}
+.accordion:hover {
+  background: #279b85;
+  cursor: pointer;
+}
+
 .accordion {
-  width: 30%;
   font-size: 16px;
+  padding: 1rem;
+  background: #3bb19b;
+  border-radius: 5px;
+  color: white;
+  margin: 1rem 0;
+  display: block;
 }
+
 .accordion > i {
   float: inline-end;
   font-size: 20px;
   font-weight: bold;
+}
+
+.product_filter_container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.each_filter_container {
+  position: relative;
+  width: 30%;
+}
+
+.filter_container > label {
+  padding: 0.5rem;
+}
+
+.accordion_checkbox {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.accordion_checkbox:checked ~ .filter_container {
+  overflow: auto;
+  max-height: 200px;
+  padding: 1rem 0;
+  border: 1px solid #d3d3d3;
+}
+.price {
+  text-align: center;
+  width: 10%;
+  font-size: 18px;
+  text-shadow: 0 0 1px rgba(39, 37, 37, 0.8);
+}
+.row > span {
+  width: 70%;
 }

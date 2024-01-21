@@ -6,20 +6,62 @@ import styles from "./styles.module.css";
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
+	const emailRegex = /^[a-zA-Z0-9._-]+@gmail\.com$/;
+	const capitalLetterRegex = /[A-Z]/;
+	const symbolRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+	const [isValid, setIsValid] = useState({email:'', password:''});
+  
+	
+	
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+	
+		setData({ ...data, [name]: value });
+	
+		if (name === 'email') {
+			if(value.length === 0) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, email: 'Email is Required' }));
+			}else if(!emailRegex.test(value)) {
 
-	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
-	};
+				setIsValid((prevIsValid) => ({ ...prevIsValid, email: 'Invalid email format. Must end with @gmail.com' }));
+			} else {
+				setIsValid((prevIsValid) => ({...prevIsValid, email: ''}))
+			}
+		} else if (name === 'password') {
+			if(value.length === 0) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Passoword is Required' }));
+			}else
+			if(value.length < 8) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Password must be at least 8 characters' }));
+			}else
+			if(!capitalLetterRegex.test(value)) {
+
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Password must contain at least 1 capital letter' }));
+			}
+			else if(!symbolRegex.test(value)) {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: 'Password must contain at least 1  symbol' }));
+			}
+			else {
+				setIsValid((prevIsValid) => ({ ...prevIsValid, password: '' }));
+				
+			}
+		}
+	  };
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const url = "http://localhost:8000/api/auth";
-			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
-			window.location = "/";
-		} catch (error) {
-			if (
+		if(isValid.email !== '' || isValid.password !== '') {
+			e.preventDefault()
+			return;
+		}else {
+
+			try {
+				const url = "http://localhost:8000/api/auth";
+				const { data: res } = await axios.post(url, data);
+				sessionStorage.setItem("token", res.data);
+				window.location = "/products";
+			} catch (error) {
+				if (
 				error.response &&
 				error.response.status >= 400 &&
 				error.response.status <= 500
@@ -27,6 +69,7 @@ const Login = () => {
 				setError(error.response.data.message);
 			}
 		}
+	}
 	};
 
 	return (
@@ -44,6 +87,8 @@ const Login = () => {
 							required
 							className={styles.input}
 						/>
+						      {isValid.email !== '' && <p style={{ color: 'red' }}>{isValid.email}</p>}
+
 						<input
 							type="password"
 							placeholder="Password"
@@ -53,6 +98,7 @@ const Login = () => {
 							required
 							className={styles.input}
 						/>
+						{isValid.password !== '' && <p style={{ color: 'red' }}>{isValid.password}</p>}
 						{error && <div className={styles.error_msg}>{error}</div>}
 						<button type="submit" className={styles.green_btn}>
 							Sing In
