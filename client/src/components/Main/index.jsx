@@ -4,6 +4,7 @@ import Products from "../Products";
 import styles from "./styles.module.css";
 import axios from "axios";
 import Sort from "../ProductSort";
+import { Link } from "react-router-dom";
 
 const Main = () => {
 	const handleLogout = () => {
@@ -38,9 +39,15 @@ const Main = () => {
 		<div className={styles.main_container}>
 			<nav className={styles.navbar}>
 				<h1>btu market</h1>
+				<div>
+					<Link to={'/cart'}>
+				<i className={"bi bi-cart " + styles.bi_cart_icon} ></i>
+
+					</Link>
 				<button className={styles.white_btn} onClick={handleLogout}>
 					Logout
 				</button>
+				</div>
 			</nav>
 			<div className={styles.content_body}>
 				<div className={styles.inner_container}>
@@ -48,7 +55,7 @@ const Main = () => {
 			<Sort  setFilteredData={setFilteredData} />
 
 				</div>
-			<Products filteredData={filteredData}/>
+			<Products filteredData={filteredData} data={data}/>
 
 			</div>
 

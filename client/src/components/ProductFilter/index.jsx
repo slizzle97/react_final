@@ -16,7 +16,6 @@ const ProductFilter = ({ data, setFilteredData }) => {
 
   const handleClickOutside = (event) => {
     if (accordionRef.current && !accordionRef.current.contains(event.target)) {
-      // Clicked outside of the accordion, close it
       setIsBrandOpen(false);
       setIsCategoryOpen(false);
       setIsRangeOpen(false);

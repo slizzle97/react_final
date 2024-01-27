@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import  {useEffect, useState } from "react";
 import Product from "../Product";
 import {Pagination, Stack} from '@mui/material'
-const Products = ({filteredData}) => {
+const Products = ({filteredData, data}) => {
     const [currentPage, setCurrentPage] = useState(1);
     
     const handleChange = (event, value) => {
@@ -20,9 +20,9 @@ const Products = ({filteredData}) => {
 	return (
 	    <div className={styles.main_container}>
       <div className={styles.cards_container}>
-        {/* Display products for the current page */}
+
         {filteredData.slice(startIndex, endIndex).map((product, index) => (
-          <Product key={index} product={product} />
+          <Product key={index} product={product} data={data} />
         ))}
       </div>
 

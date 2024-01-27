@@ -3,6 +3,7 @@ import Main from "./components/Main";
 import Signup from "./components/Singup";
 import Login from "./components/Login";
 import ProductDetails from "./components/ProductDetails";
+import Cart from "./components/Cart";
 
 function App() {
   const user = sessionStorage.getItem("token");
@@ -17,6 +18,8 @@ function App() {
       <Route path="/signup" exact element={<Signup />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/products" element={<Navigate replace to="/login" />} />
+      <Route path="/cart" exact element={<Cart />} />
+      <Route path="/" element={<Navigate replace to="/signup" />} />
     </Routes>
   );
 }

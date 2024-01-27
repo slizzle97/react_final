@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Rating } from "@mui/material";
 
 const Product = (props) => {
-    const { product } = props;
+    const { product, data } = props;
 
     const generateName = () => {
-        
           if (product.title.includes(product.brand)) {
             return product.title;
           } else {
@@ -21,7 +20,7 @@ const Product = (props) => {
 	return (
 		<div className={styles.card_container}>
 			<div className={styles.card}>
-            <Link to={`/products/${product.id}`}className={styles.link}>
+            <Link to={{pathname: `/products/${product.id}`, search: `${product.category}` }} state={data} className={styles.link}>
 
                 <img className={styles.thumbnail} src={product.thumbnail} alt="thumbnail" />
                 <div className={styles.content_container}>
