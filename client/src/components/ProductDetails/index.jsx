@@ -5,8 +5,9 @@ import styles from './styles.module.css'
 import { Rating } from '@mui/material';
 const ProductDetails = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({})
+  const [product, setProduct] = useState({rating:0})
   const [activeImage, setActiveImage] = useState(product.thumbnail)
+  
 const navigate = useNavigate()
   useEffect(() => {
     getSingleProduct()
@@ -20,7 +21,6 @@ const navigate = useNavigate()
         const data = await axios.get(url);
         setProduct(data.data)
         setActiveImage(data.data.thumbnail)
-
     }catch (e) {
         console.log(e);
     }
@@ -55,7 +55,7 @@ const handleGoBack = () => {
                 {product.rating}
 
                 </span>
-                <Rating name="half-rating" value={product.rating} readOnly precision={0.5} />
+                <Rating name="half-rating" value={product?.rating} readOnly precision={0.5} />
           </p>
 
 

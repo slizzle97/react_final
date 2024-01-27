@@ -19,14 +19,14 @@
   align-items: center;
 }
 .accordion:hover {
-  background: #279b85;
+  background: #fe017e;
   cursor: pointer;
 }
 
 .accordion {
   font-size: 16px;
   padding: 1rem;
-  background: #3bb19b;
+  background: #fe017e;
   border-radius: 5px;
   color: white;
   margin: 1rem 0;
@@ -74,5 +74,17 @@
   text-shadow: 0 0 1px rgba(39, 37, 37, 0.8);
 }
 .row > span {
-  width: 70%;
+  width: 65%;
+}
+.pF_container {
+  width: 100%;
+}
+.search_container > input {
+  width: 50%;
+
+  margin-left: 3.5%;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding-left: 1rem;
 }

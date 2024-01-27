@@ -29,7 +29,7 @@ const Product = (props) => {
                 <p className={styles.description}>{product.description}</p>
                 <span className={styles.rate}>
                 {product.rating}
-                <Rating name="half-rating"  readOnly defaultValue={product.rating} precision={0.5} />
+                <Rating name="half-rating"  readOnly value={product.rating} precision={0.5} />
 
                 </span>
 

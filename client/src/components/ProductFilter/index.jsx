@@ -31,7 +31,7 @@ const ProductFilter = ({ data, setFilteredData }) => {
 
   function handleChanges(event, newValue) {
      setRange(newValue);
-     console.log(range);
+
   }
   const handleCheckboxChange = (brand) => {
     if (selectedBrands.includes(brand)) {
@@ -52,17 +52,15 @@ const ProductFilter = ({ data, setFilteredData }) => {
   useEffect(() => {
     const selectedBrandsCopy = [...selectedBrands];
     const selectedCategoriesCopy = [...selectedCategories];
-  
+    
       const displayFilteredData = data.filter((product) => {
         const brandFilter = selectedBrandsCopy.length === 0 || selectedBrandsCopy.includes(product.brand);
         const categoryFilter = selectedCategoriesCopy.length === 0 || selectedCategoriesCopy.includes(product.category);
-        const rangeFilter = product.price >= range[0] && product.price <= range[1]
-    
+        const rangeFilter = product.price >= range[0] && product.price <= range[1];
+
         return brandFilter && categoryFilter && rangeFilter;
       });
-    console.log('Filtered Data:', displayFilteredData, selectedCategoriesCopy);
-
-  
+      console.log(displayFilteredData);
     setFilteredData(displayFilteredData);
   }, [selectedBrands, selectedCategories, data, setFilteredData, range]);
   
@@ -100,6 +98,7 @@ const ProductFilter = ({ data, setFilteredData }) => {
 
 
   return (
+    <div className={styles.pF_container}>
     <div className={styles.product_filter_container}  ref={accordionRef}>
       <div className={styles.each_filter_container}>
             <input
@@ -188,8 +187,9 @@ const ProductFilter = ({ data, setFilteredData }) => {
       </div>
       </div>
 
-
         </div> 
+
+</div>
     
   );
 };

@@ -75,7 +75,7 @@ const Signup = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(isValid);
+		
 		if(isValid.email !== '' || isValid.password !== '' || isValid.firstName !== '' || isValid.lastName !== '') {
 			e.preventDefault()
 			return;

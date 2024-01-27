@@ -22,7 +22,7 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #3bb19b;
-  outline: 1px solid #3bb19b;
+  background-color: #fe017e;
+  outline: 1px solid #fe017e;
   border-radius: 5px;
 }
