@@ -22,7 +22,7 @@ const ProductDetails = () => {
   
   const filterForSingle = () => {
     
-    let fData = location.state.filter(item => {
+    let fData = location.state?.filter(item => {
       return item.category === location.search.slice(1)
     })
     setSameCategoryData(fData)
@@ -32,7 +32,7 @@ const ProductDetails = () => {
 
   const getSingleProduct = async (idFromSimilar) => {
     if(idFromSimilar) {
-      navigate(`/products/${product.id}`)
+      navigate(`/products/${product.id}?${product.category}`)
     }
     try {
         const url = `http://localhost:3001/products/${idFromSimilar ? idFromSimilar : id}`;
@@ -49,21 +49,7 @@ const ProductDetails = () => {
     const handleGoBack = () => {
       navigate('/products');
     };
-    const addToCart = () => {
-      const productId = product.id; 
-      const quantity = inputRef.current.value;
 
-      const existingCart = JSON.parse(localStorage.getItem("cart")) || {};
-
-      const updatedCart = {
-        ...existingCart,
-        [productId]: quantity
-      };
-
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      
-
-    } 
 
     return (
       <>
@@ -102,11 +88,6 @@ const ProductDetails = () => {
             <strong>Category:</strong> {product.category}
           </p>
           <p className={styles.desc}>{product.description}</p>
-
-          <div className={styles.add_cart}>
-            <input type="number" name="" id="" defaultValue={1} ref={inputRef} />
-            <i className='bi bi-plus' style={{ fontSize: '30px' }} onClick={addToCart}></i>
-          </div>
         </div>
      
       </div>

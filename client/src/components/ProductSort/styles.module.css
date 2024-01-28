@@ -5,3 +5,9 @@
   border-radius: 5px;
   width: 15vw;
 }
+@media screen and (max-width: 600px) {
+  .select {
+    width: 100%;
+    margin: 0;
+  }
+}

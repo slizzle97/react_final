@@ -59,7 +59,6 @@ const ProductFilter = ({ data, setFilteredData }) => {
 
         return brandFilter && categoryFilter && rangeFilter;
       });
-      console.log(displayFilteredData);
     setFilteredData(displayFilteredData);
   }, [selectedBrands, selectedCategories, data, setFilteredData, range]);
   
@@ -85,11 +84,19 @@ const ProductFilter = ({ data, setFilteredData }) => {
   const toggleAccordion = (filterName) => {
     if(filterName === 'brand') {
       setIsBrandOpen(!isBrandOpen);
+      setIsCategoryOpen(false)
+      setIsRangeOpen(false)
+
     }
     else if(filterName ==='category') {
       setIsCategoryOpen(!isCategoryOpen)
+      setIsRangeOpen(false)
+      setIsBrandOpen(false);
+
     }else if(filterName ==='range') {
       setIsRangeOpen(!isRangeOpen)
+      setIsCategoryOpen(false)
+      setIsBrandOpen(false);
     }
   };
 

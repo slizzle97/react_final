@@ -40,10 +40,6 @@ const Main = () => {
 			<nav className={styles.navbar}>
 				<h1>btu market</h1>
 				<div>
-					<Link to={'/cart'}>
-				<i className={"bi bi-cart " + styles.bi_cart_icon} ></i>
-
-					</Link>
 				<button className={styles.white_btn} onClick={handleLogout}>
 					Logout
 				</button>

@@ -94,12 +94,21 @@
 .similar_item_title {
   text-align: center;
 }
-.add_cart {
-  display: flex;
-  gap: 1rem;
+
+@media screen and (max-width: 992px) {
+  .secondary_image {
+    width: 20%;
+  }
 }
-.add_cart > input {
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding-left: 16px;
+@media screen and (max-width: 600px) {
+  .product_item {
+    flex-direction: column;
+  }
+  .image_container {
+    width: 93%;
+  }
+  .similar_items {
+    overflow-x: auto;
+    padding: 0;
+  }
 }

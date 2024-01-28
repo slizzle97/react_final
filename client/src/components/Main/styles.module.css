@@ -29,9 +29,8 @@
   display: flex;
   align-items: center;
 }
-.bi_cart_icon {
-  margin: 1.5rem;
-  font-size: 24px;
-  color: white;
-  cursor: pointer;
+@media screen and (max-width: 600px) {
+  .inner_container {
+    flex-direction: column;
+  }
 }
